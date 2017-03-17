@@ -84,14 +84,18 @@
 			};
 
 			// get color codes
-			this.getColorCodes = function () {
+			// Optionnally, a type can be defined to get only the color codes
+			// for a given type. Type can be 'seq', 'div' or 'qual'.
+			this.getColorCodes = function (type) {
 				var colorCodes = [];
-				for ( code in this.colorSchemes ) {
-					if ( this.colorSchemes.hasOwnProperty(code) ) {
-						colorCodes.push(code);
+				var colorTypes = this.getColorCodesByType();
+				if (typeof(type) === 'undefined'){
+					for (var ct in colorTypes){
+						colorCodes = colorCodes.concat(colorTypes[ct]);
 					}
+					return colorCodes;
 				}
-				return colorCodes;
+				return (colorTypes[type] || []);
 			};
 
 			// get color codes by type
